@@ -5,12 +5,19 @@ const habVAL = scope.habilidadvalue;
 const charLAB = scope.caracteristicalabel;
 const habLAB = scope.habilidadlabel;
 
+let actor = game.actors.get(actorID);
+let heridasLeves = actor.system.attributes.HERIDASLEVES.value;
+let heridasGraves = actor.system.attributes.HERIDASGRAVES.value;
+
+let charFUNCIONAL = charVAL - heridasGraves;
+if (charFUNCIONAL <= 0) {charFUNCIONAL = 1}
+
 let totalDice = 0;
 if (!Number(habVAL)) {
-    totalDice = charVAL
-} else { totalDice = charVAL + habVAL}
+    totalDice = charFUNCIONAL
+} else { totalDice = charFUNCIONAL + habVAL}
 
-let rollFormula =  totalDice + "d6kh" + charVAL;
+let rollFormula =  totalDice + "d6kh" + charFUNCIONAL + "-" + heridasLeves;
 let roll = new Roll(rollFormula);
 
 await roll.evaluate();
