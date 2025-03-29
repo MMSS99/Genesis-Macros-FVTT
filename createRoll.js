@@ -36,5 +36,5 @@ let keptSum = keptDice.reduce((sum, d) => sum + d, 0);
 
 roll.toMessage({
     speaker: { alias: game.actors.get(actorID).name},
-    flavor: `${habLAB} | Dados finales: ${keptDice.join(", ")} | Seises: ${sixCount} | Total: ${keptSum}`
+    flavor: `${habLAB} <br>Seises: ${sixCount} | Total: ${keptSum}  <br>Dados finales: ${keptDice.join(", ")} `
 });
