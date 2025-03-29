@@ -26,7 +26,7 @@ await roll.evaluate();
 let keptDice = roll.terms[0].results
     .map(d => d.result)  // Extract dice results
     .sort((a, b) => b - a)  // Sort descending
-    .slice(0, charVAL);  // Keep the highest charVAL dice
+    .slice(0, charFUNCIONAL);  // Keep the highest charVAL dice
 
 // Count how many kept dice rolled a 6
 let sixCount = keptDice.filter(d => d === 6).length;
