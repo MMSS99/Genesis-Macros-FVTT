@@ -35,10 +35,48 @@ new Dialog({
     buttons: {
       roll: {
         label: "Roll",
-        callback: (html) => {
-          let diceCount = html.find("#dice-count").val() || 1;
-          let roll = new Roll(`${diceCount}d6`);
-          roll.roll().toMessage();
+        callback: async (html) => {
+            let tiradaDiv = html.find("input[name='tiradadividida']:checked").val();
+            let dadosFinalesCaracteristica = 0;
+          
+            // sacamos el actor seleccionado
+            const selectoractor = game.macros.get("1tnVvWQAtYaAjTdC");
+            const actor = await selectoractor.execute();
+
+            // obtenemos habilidad
+            const caracteristica = actor.system.attributes.CHAR.XXX
+            const habilidad = actor.system.attributes.HABXXX.XXXXXXX
+
+            //calculamos dados a tirar finales y bonificador final
+            let heridasLeves = actor.system.attributes.HERIDASLEVES.value;
+            let heridasGraves = actor.system.attributes.HERIDASGRAVES.value;
+
+            if (tiradaDiv === "SI") {
+            dadosFinalesCaracteristica = Math.round((caracteristica.value - heridasGraves)/Number(html.find("#vecesDividida").val() || 1))}
+            else {dadosFinalesCaracteristica = caracteristica.value - heridasGraves};
+
+            if (dadosFinalesCaracteristica <= 0) {dadosFinalesCaracteristica = 1}
+
+        
+
+            let dadosFinales = dadosFinalesCaracteristica + Number(html.find("#dadosPLUS").val() || 0)
+            let modificadorFinal = 0 - heridasLeves + Number(html.find("#modPLUS").val() || 0);
+
+
+            // lanzamos tirada
+
+            const rollmacro = game.macros.get("FXJH1rfQ0HSJemOX");
+            await rollmacro.execute({
+                actorID: actor._id,
+                dadosBaseFinales: dadosFinales,
+                modFinal: modificadorFinal,
+                caracteristicalabel: caracteristica.label,
+                habilidadvalue: habilidad.value,
+                habilidadlabel: habilidad.label}
+            );  
+
+
+
         }
       }
     },
