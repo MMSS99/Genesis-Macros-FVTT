@@ -1,5 +1,5 @@
 new Dialog({
-    title: "Custom Dice Roll",
+    title: "Tirada modificada",
     content: `
       <style>
         .inputs {
@@ -8,7 +8,19 @@ new Dialog({
           text-align: center;
         }
       </style>
-      <div style="padding:5px 0px">
+      <div style="padding:2px 0px">
+        <p>
+            <label for="tiradadividida">¿Es la tirada dividida?</label><br/>
+            <input type="radio" name="tiradadividida" id="divididaNO" value="NO" checked /> No
+            <input type="radio" name="tiradadividida" id="divididaSI" value="SI" /> Si
+        </p>
+        <p>
+            <label for="vecesDividida">¿Dividida cuántas veces?</label>
+            <input id="vecesDividida" type="number" class="inputs" value="2"/>
+        </p>
+      </div>
+      <hr/>
+      <div style="padding:2px 0px">
         <p>
             <label for="dadosPLUS">¿Cuentas con dados adicionales? (+D)</label>
             <input id="dadosPLUS" type="number" class="inputs" value="0"/>
