@@ -11,7 +11,7 @@ if (!Number(habVAL)) {
     totalDice = diceBASE
 } else { totalDice = diceBASE + habVAL}
 
-let rollFormula =  totalDice + "d6kh" + diceBASE + "-" + modBASE;
+let rollFormula =  totalDice + "d6kh" + diceBASE + "+" + modBASE;
 let roll = new Roll(rollFormula);
 
 await roll.evaluate();
@@ -30,5 +30,5 @@ let keptSum = keptDice.reduce((sum, d) => sum + d, 0);
 
 roll.toMessage({
     speaker: { alias: game.actors.get(actorID).name},
-    flavor: `${habLAB? habLAB : charLAB} <br>Seises: ${sixCount} | Total: ${keptSum-modBASE}  <br>Dados finales: ${keptDice.join(", ")} `
+    flavor: `${habLAB? habLAB : charLAB} <br>Seises: ${sixCount} | Total: ${keptSum+modBASE}  <br>Dados finales: ${keptDice.join(", ")} `
 });
