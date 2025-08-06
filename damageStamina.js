@@ -29,7 +29,7 @@ new Dialog({
             let heridasLeves = actor.system.attributes.HERIDASLEVES.value;
             let heridasGraves = actor.system.attributes.HERIDASGRAVES.value;
             const heridasLIMIT = actor.system.attributes.HERIDASLEVES.max;
-            const dureza = actor.system.attributes.HABFIS.DUREZA;
+            const dureza = actor.system.attributes.HABFIS.DUREZA.value;
 
             let mensaje = actor.name + " sufre ";
 
@@ -38,20 +38,29 @@ new Dialog({
                 mensaje += dano + "a su Aguante!"
                 }
             else {
-              var danoSufrido = dano - aguanteACT;
-              var accHeridas = ((danoSufrido - aguanteMAX) / (aguanteMAX + dureza) + 1);
-              var resto = (danoSufrido - aguanteMAX) % (aguanteMAX + dureza);
+              var danoSufrido = dano;
+              var aguanteRestante = aguanteACT;
+              var accHeridas = 0;
+              while (danoSufrido > aguanteRestante){
+                danoSufrido -= aguanteRestante + dureza;
+                aguanteRestante = aguanteMAX
+                accHeridas += 1
+              }
+              aguanteRestante -= danoSufrido
+              console.log("heridasLeves:", heridasLeves);
+              console.log("accHeridas:", accHeridas);
+              console.log("heridasLIMIT:", heridasLIMIT);
 
-              actor.update({"system.attributes.AGUANTE.value": resto})
+              actor.update({"system.attributes.AGUANTE.value": aguanteRestante})
               if ((heridasLeves + accHeridas) >= heridasLIMIT){
-                var heridasGravesSuf = accHeridas / heridasLIMIT;
+                var heridasGravesSuf = Math.floor(accHeridas / heridasLIMIT);
                 var accHeridas = accHeridas % heridasLIMIT;
                 actor.update({"system.attributes.HERIDASGRAVES.value": (heridasGravesSuf + heridasGraves),
                               "system.attributes.HERIDASLEVES.value": (accHeridas + heridasLeves)})
-                mensaje += accHeridas + " heridas leves y " + heridasGravesSuf + " heridas graves, manteniendo " + resto + " aguante!"
+                mensaje += accHeridas + " heridas leves y " + heridasGravesSuf + " heridas graves, manteniendo " + aguanteRestante + " aguante!"
               } else{
                 actor.update({"system.attributes.HERIDASLEVES.value": (accHeridas + heridasLeves)})
-                mensaje += accHeridas + " heridas leves , manteniendo " + resto + " aguante!"
+                mensaje += accHeridas + " heridas leves , manteniendo " + aguanteRestante + " aguante!"
               }
 
               
