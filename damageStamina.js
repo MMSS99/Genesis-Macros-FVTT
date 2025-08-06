@@ -18,7 +18,7 @@ new Dialog({
       roll: {
         label: "Dañar",
         callback: async (html) => {
-            let dano = Number(html.find("input[name='danoSufrido']:checked").val());
+            let dano = Number(html.find("#danoSufrido").val());
           
             const selectoractor = game.macros.get("1tnVvWQAtYaAjTdC");
             const actor = await selectoractor.execute();
