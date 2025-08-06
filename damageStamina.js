@@ -54,10 +54,11 @@ new Dialog({
                 mensaje += accHeridas + " heridas leves , manteniendo " + resto + " aguante!"
               }
 
-            ChatMessage.create({content: mensaje})
               
 
             };
+
+            ChatMessage.create({content: mensaje})
 
             
 
