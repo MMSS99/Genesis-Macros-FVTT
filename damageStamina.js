@@ -47,9 +47,6 @@ new Dialog({
                 accHeridas += 1
               }
               aguanteRestante -= danoSufrido
-              console.log("heridasLeves:", heridasLeves);
-              console.log("accHeridas:", accHeridas);
-              console.log("heridasLIMIT:", heridasLIMIT);
 
               actor.update({"system.attributes.AGUANTE.value": aguanteRestante})
               if ((heridasLeves + accHeridas) >= heridasLIMIT){
